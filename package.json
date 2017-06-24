@@ -106,7 +106,7 @@
     "qs": "^6.2.1",
     "request": "^2.75.0",
     "uport": "^0.4.2",
-    "web3": "^0.18.2"
+    "web3": "^0.19.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -127,8 +127,7 @@
     "condition-circle": "^1.5.0",
     "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.2.2",
-    "eth-lightwallet": "^2.4.3",
-    "ethereumjs-testrpc": "^3.0.3",
+    "eth-lightwallet": "^2.5.5",
     "ethereumjs-tx": "^1.1.1",
     "istanbul": "^0.4.5",
     "istanbul-instrumenter-loader": "0.2.0",
