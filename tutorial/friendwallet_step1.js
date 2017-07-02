@@ -4,7 +4,7 @@
 
 const Connect = window.uportconnect.Connect
 const appName = 'FriendWallet'
-const connect = new Connect(appName)
+const connect = new Connect(appName, {network: 'rinkeby'})
 const web3 = connect.getWeb3()
 
 // uPort connect
@@ -24,7 +24,6 @@ const sendEther = () => {
 
   web3.eth.sendTransaction(
     {
-      from: globalState.uportId,
       to: globalState.sendToAddr,
       value: value,
       gasPrice: gasPrice,

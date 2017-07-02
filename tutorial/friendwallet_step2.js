@@ -4,7 +4,12 @@
 
 const Connect = window.uportconnect.Connect
 const appName = 'FriendWallet'
-const connect = new Connect(appName)
+const connect = new Connect(appName, {'network': {
+        id: '0x4',
+        registry: '0x2cc31912b2b0f3075a87b3640923d45a26cef3ee',
+        rpcUrl: 'https://rinkeby.infura.io'
+      }})
+//const connect = new Connect(appName)
 const web3 = connect.getWeb3()
 
 // uPort connect
@@ -14,6 +19,7 @@ const uportConnect = () => {
     console.log(credentials)
     globalState.uportId = credentials.address
     globalState.name = credentials.name
+    console.log('address:' + window.uportconnect.MNID.decode(globalState.uportId).address)
     render()
   }, console.err)
 }
@@ -26,7 +32,7 @@ const sendEther = () => {
 
   web3.eth.sendTransaction(
     {
-      from: globalState.uportId,
+      from: window.uportconnect.MNID.decode(globalState.uportId).address,
       to: globalState.sendToAddr,
       value: value,
       gasPrice: gasPrice,
