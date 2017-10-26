@@ -227,7 +227,7 @@ class ConnectCore {
     // TODO consider UI for push notifications, maybe a popup explaining, then a loading symbol waiting for a response, a retry and a cancel button. should dev use uriHandler if using push notifications?
     (this.isOnMobile && this.mobileUriHandler)
       ? this.mobileUriHandler(uri)
-      : uriHandler(uri, topic.cancel, this.appName, this.firstReq)
+      : uriHandler(`${uri}&callback_type=post`, topic.cancel, this.appName, this.firstReq)
 
     this.firstReq = false
 
