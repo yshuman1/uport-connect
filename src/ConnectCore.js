@@ -115,7 +115,7 @@ class ConnectCore {
    *  Creates a request given a request object, will also always return the user's
    *  uPort address. Calls given uriHandler with the uri. Returns a promise to
    *  wait for the response.
-   * 
+   *
    *  @example
    *  const req = { requested: ['name', 'country'], verified: ['GithubUser']}
    *  connect.requestCredentials(req).then(credentials => {
@@ -137,7 +137,7 @@ class ConnectCore {
     return new Promise((resolve, reject) => {
       if (this.canSign) {
         this.credentials.createRequest({...request, network_id: this.network.id, callbackUrl: topic.url}).then(requestToken =>
-          resolve(`me.uport:me?requestToken=${encodeURIComponent(requestToken)}`)
+          resolve(`https://id.uport.me/me?requestToken=${encodeURIComponent(requestToken)}`)
         )
       } else {
         if (request.requested && request.requested.length > 0) {
@@ -199,7 +199,7 @@ class ConnectCore {
     const self = this
     const topic = this.topicFactory('status')
     return this.credentials.attest({ sub, claim, exp }).then(jwt => {
-      return self.request({uri: `me.uport:add?attestations=${encodeURIComponent(jwt)}&callback_url=${encodeURIComponent(topic.url)}`, topic, uriHandler})
+      return self.request({uri: `https://id.uport.me/add?attestations=${encodeURIComponent(jwt)}&callback_url=${encodeURIComponent(topic.url)}`, topic, uriHandler})
     })
   }
 
@@ -324,7 +324,7 @@ const paramsToUri = (params) => {
   }
   const networkId = params.network_id || this.network.id
   params.to = isMNID(params.to) || params.to === 'me' ? params.to : encode({network: networkId, address: params.to})
-  let uri = `me.uport:${params.to}`
+  let uri = `https://id.uport.me/${params.to}`
   const pairs = []
   if (params.value) {
     pairs.push(['value', parseInt(params.value, 16)])
