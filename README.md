@@ -23,7 +23,7 @@ For any questions or library support reach out to the [uPort team on gitter](htt
 
 ## <a name="getting-started"></a>Getting started with uPort
 
-For additional documentation on all functionality [visit our docs](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md). For a quick start continue below.
+For additional documentation on all functionality [visit our docs](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md). For a quick start continue below.
 
 For a more interactive quick start visit [developer.uport.me](https://developer.uport.me)
 
@@ -88,18 +88,18 @@ For a more in depth quick start example follow our [tutorial for building a simp
 
 ## <a name="usage-guide"></a> Usage Guide
 
-The following Connect object is the primary interface you will use. All details and additional documentation can be found in [our docs](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md).
+The following Connect object is the primary interface you will use. All details and additional documentation can be found in [our docs](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md).
 
-* [Connect](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#Connect) ⇐ <code>[ConnectCore](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore)</code>
-    * [new Connect(appName, [opts])](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#new_Connect_new)
-    * [.getWeb3()](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#Connect+getWeb3) ⇒ <code>web3</code>
-    * [.getProvider()](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+getProvider) ⇒ <code>[UportSubprovider](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#UportSubprovider)</code>
-    * [.requestCredentials([request], [uriHandler])](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+requestCredentials) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
-    * [.requestAddress([uriHandler])](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+requestAddress) ⇒ <code>Promise.&lt;String, Error&gt;</code>
-    * [.attestCredentials(credential, [uriHandler])](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+attestCredentials) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
-    * [.request(request)](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+request) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
-    * [.contract(abi)](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+contract) ⇒ <code>Object</code>
-    * [.sendTransaction(txobj)](https://github.com/uport-project/uport-connect/blob/develop/DOCS.md#ConnectCore+sendTransaction) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
+* [Connect](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#Connect) ⇐ <code>[ConnectCore](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore)</code>
+    * [new Connect(appName, [opts])](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#new_Connect_new)
+    * [.getWeb3()](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#Connect+getWeb3) ⇒ <code>web3</code>
+    * [.getProvider()](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+getProvider) ⇒ <code>[UportSubprovider](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#UportSubprovider)</code>
+    * [.requestCredentials([request], [uriHandler])](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+requestCredentials) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
+    * [.requestAddress([uriHandler])](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+requestAddress) ⇒ <code>Promise.&lt;String, Error&gt;</code>
+    * [.attestCredentials(credential, [uriHandler])](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+attestCredentials) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
+    * [.request(request)](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+request) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
+    * [.contract(abi)](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+contract) ⇒ <code>Object</code>
+    * [.sendTransaction(txobj)](https://github.com/uport-project/uport-connect/blob/develop/docs/reference/index.md#ConnectCore+sendTransaction) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
 
 ### <a name="communication"></a> Communication
 
@@ -111,7 +111,7 @@ When the library is loaded on a non-mobile device the library will use QR codes 
 
 Using the default QR is the quickest way to start but in many cases you may want to change the QR display, embed the QR codes in different parts of your app, change the display depending on the request, or generate QR codes in once place and show them in another. We provide flexible configs to meet your needs. You can set a default `uriHandler` to be used with every request from the instantiated Connect object or you can can pass a `uriHandler` with each function call which makes a request. The functions which create a request should be clear from the docs.
 
-Instantiate a Connect object with a default `uriHandler`. This URI handler will be called with the request URI on every request.   
+Instantiate a Connect object with a default `uriHandler`. This URI handler will be called with the request URI on every request.
 
 ```js
 const uport = new Connect('MyDApp', {
@@ -149,7 +149,7 @@ const uriHandler = (uri) => {
 By default `uport-connect` will detect if the library is loaded on a mobile device. When on a mobile device it will call the default `mobileUriHandler` function which consumes a URI encoded request. When on a mobile device it assumes that the uPort app is on the same device, it will set the window URL to the request URI which will bring up a prompt to open that URI in the uPort app. To return a response the mobile app will call a URL which encodes the response and return control to the calling app. There is also a great deal of flexibility with the `mobileUriHandler`, the following options may be useful.
 
 
-Instantiate a Connect object with a default `mobileUriHandler`. This mobile URI handler will be called with the request URI on every request from a mobile device.   
+Instantiate a Connect object with a default `mobileUriHandler`. This mobile URI handler will be called with the request URI on every request from a mobile device.
 
 ```js
 const uport = new Connect('MyDApp', {
@@ -304,7 +304,7 @@ $ npm run build:docs:html
 $ open docs/index.html
 ```
 ```shell
-$ npm run build:docs:md // to generate a DOCS.md markdown file
+$ npm run build:docs:md // to generate our reference markdown files
 ```
 
 #### <a name="scripts"></a> Scripts

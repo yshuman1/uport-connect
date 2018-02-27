@@ -29,7 +29,7 @@ lib
 dist
 
 #Docs
-docs
+docs-html
 
 .DS_Store
 
