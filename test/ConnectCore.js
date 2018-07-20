@@ -65,6 +65,7 @@ describe('ConnectCore', () => {
       expect(uport.credentials).to.be.an.instanceof(Credentials)
       expect(uport.canSign).to.be.false
       expect(uport.getWeb3).to.equal(undefined)
+      expect(uport.accountType).to.equal(undefined)
     })
 
     it('does not have a closeUriHandler if not using built in openQr', () => {
@@ -100,6 +101,10 @@ describe('ConnectCore', () => {
     it('throws error if the network config object is not well formed ', () => {
       try { new ConnectCore('test app', {network: {id: '0x5'}}) } catch (e) { return }
       throw new Error('did not throw error')
+    })
+
+    it('throws error if segregated account is requested on mainnet', () => {
+      expect(() => new ConnectCore('test app', {network: 'mainnet', accountType: 'segregated'})).to.throw()
     })
   })
 
@@ -290,7 +295,7 @@ describe('ConnectCore', () => {
                 return PROFILE
               },
               createRequest: (payload) => {
-                expect(payload).to.be.deep.equal({ callbackUrl: 'https://chasqui.uport.me/api/v1/topic/123', network_id: '0x4' })
+                expect(payload).to.be.deep.equal({ callbackUrl: 'https://chasqui.uport.me/api/v1/topic/123', network_id: '0x4', accountType: 'none' })
                 return REQUEST_TOKEN
               }
             })
@@ -322,7 +327,7 @@ describe('ConnectCore', () => {
               return PROFILE
             },
             createRequest: (payload) => {
-              expect(payload).to.be.deep.equal({ callbackUrl: 'https://chasqui.uport.me/api/v1/topic/123', network_id: '0x2a' })
+              expect(payload).to.be.deep.equal({ callbackUrl: 'https://chasqui.uport.me/api/v1/topic/123', network_id: '0x2a', accountType: 'none' })
               return REQUEST_TOKEN
             }
           })
@@ -354,6 +359,7 @@ describe('ConnectCore', () => {
             createRequest: (payload) => {
               expect(payload).to.be.deep.equal({
                 requested: ['phone'],
+                accountType: 'none',
                 network_id: '0x4',
                 notifications: true,
                 callbackUrl: 'https://chasqui.uport.me/api/v1/topic/123'
@@ -389,6 +395,7 @@ describe('ConnectCore', () => {
             createRequest: (payload) => {
               expect(payload).to.be.deep.equal({
                 notifications: true,
+                accountType: 'none',
                 network_id: '0x4',
                 callbackUrl: 'https://chasqui.uport.me/api/v1/topic/123'
               })
@@ -477,6 +484,34 @@ describe('ConnectCore', () => {
       const uport = new ConnectCore('test app', {network: netConfig})
       const provider = uport.getProvider()
       expect(uport.network.rpcUrl, 'uport.network.rpcUrl').to.equal(provider.provider.host)
+    })
+
+    it('requests a keypair account by default when calling getAddress', () => {
+      const uport = new ConnectCore('test app', {
+        topicFactory: () => mockTopic('Fake'),
+        uriHandler: sinon.spy(),
+        credentials: mockSigningCredentials({
+          receive: () => PROFILE,
+          createRequest: (payload) => { expect(payload.accountType).to.equal('keypair') }
+        })
+      })
+      const provider = uport.getProvider()
+      provider.getAddress((err) => expect(err).to.be.null)
+    })
+
+    it('requests the configured accountType if specified when calling getAddress', () => {
+      const accountType = 'general'
+      const uport = new ConnectCore('test app', {
+        accountType,
+        topicFactory: () => mockTopic('Fake'),
+        uriHandler: sinon.spy(),
+        credentials: mockSigningCredentials({
+          receive: () => PROFILE,
+          createRequest: (payload) => { expect(payload.accountType).to.equal(accountType) }
+        })
+      })
+      const provider = uport.getProvider()
+      provider.getAddress((err) => expect(err).to.be.null)
     })
   })
 
