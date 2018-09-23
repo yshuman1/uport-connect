@@ -11,5 +11,3 @@ For this example:
 4. $ open uport_tutorial.html
 
 \*In this example we use the uPort sample dapp. If you want to test your own deployed dapp you need to update the contract address, abi, appName, and of course the functions being called along with their params
-
-\*\*There is an error on this example with the connect uPort section not displaying info properly. **Send Ether** & **Set Status** function as expected.
